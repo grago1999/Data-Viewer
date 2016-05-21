@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        let pointGraph = PointLineGraph(frame:CGRect(x:0, y:0, width:screenWidth, height:screenHeight/2), values:[CGPointZero, CGPoint(x:10.0, y:10.0), CGPoint(x:10.0, y:20.0), CGPoint(x:20.0, y:20.0), CGPoint(x:30.0, y:30.0), CGPoint(x:40.0, y:40.0), CGPoint(x:50.0, y:50.0), CGPoint(x:24.0, y:46.0), CGPoint(x:37.0, y:62.3)])
+        let pointGraph = PointLineGraph(frame:CGRect(x:0, y:0, width:screenWidth, height:screenHeight/2), values:[CGPointZero, CGPoint(x:10.0, y:10.0), CGPoint(x:10.0, y:20.0), CGPoint(x:20.0, y:20.0), CGPoint(x:30.0, y:30.0), CGPoint(x:40.0, y:40.0), CGPoint(x:44.0, y:53.0), CGPoint(x:57.0, y:62.3), CGPoint(x:80.0, y:50.0)])
         pointGraph.setAxisTitles("X Axis", yAxisTitle:"Y Axis")
         pointGraph.addGrid(10)
         pointGraph.drawPoints(true, shoudlAnimate:true)

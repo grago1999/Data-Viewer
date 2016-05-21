@@ -32,6 +32,7 @@ class GridView: UIView {
             lineView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
             self.addSubview(lineView)
             horLineViews.append(lineView)
+            createValueLabel(lineView, isVert:false, maxVal:maxY, i:i)
         }
     }
     
@@ -42,13 +43,23 @@ class GridView: UIView {
             lineView.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
             self.addSubview(lineView)
             vertLineViews.append(lineView)
-            
-            let labelWidth:CGFloat = 40.0
-            let lineLabel = UILabel(frame:CGRect(x:-labelWidth/4, y:lineView.frame.size.height, width:labelWidth, height:30.0))
-            lineLabel.text = String(CGFloat(i)*(maxX/CGFloat(lines)))
-            lineLabel.font = UIFont(name:"Avenir-Heavy", size:10.0)
-            lineView.addSubview(lineLabel)
+            createValueLabel(lineView, isVert:true, maxVal:maxX, i:i)
         }
+    }
+    
+    func createValueLabel(lineView:UIView, isVert:Bool, maxVal:CGFloat, i:Int) {
+        let labelWidth:CGFloat = 40.0
+        let labelHeight:CGFloat = 30.0
+        var labelFrame:CGRect = CGRect(x:-labelWidth*(3/4), y:-labelWidth/4, width:labelWidth, height:labelHeight)
+        if isVert {
+            labelFrame = CGRect(x:-labelWidth/4, y:-labelWidth*(3/4), width:labelWidth, height:labelHeight)
+        }
+        let lineLabel = UILabel(frame:labelFrame)
+        let value:CGFloat = CGFloat(lines-i)*(maxVal/CGFloat(lines))
+        let displayValue:Double = Double(round(10*value)/10)
+        lineLabel.text = String(displayValue)
+        lineLabel.font = UIFont(name:"Avenir-Heavy", size:10.0)
+        lineView.addSubview(lineLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {

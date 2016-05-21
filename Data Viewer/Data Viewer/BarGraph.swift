@@ -33,7 +33,7 @@ class BarGraph: UIView {
         graphContainerView.layer.borderColor = UIColor.blackColor().CGColor
         graphContainerView.layer.borderWidth = 4.0
         
-        barContainerView = UIView(frame:CGRect(x:margin/2, y:margin/2, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
+        barContainerView = UIView(frame:CGRect(x:margin*(2/3), y:margin/2, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
         barContainerView.backgroundColor = UIColor.clearColor()
         
         super.init(frame:frame)
@@ -56,18 +56,12 @@ class BarGraph: UIView {
             let barView = UIView(frame:CGRect(x:((distX+width)*CGFloat(i))+(distX/2), y:barContainerView.frame.size.height, width:width, height:startHeight))
             barView.backgroundColor = UIColor.blueColor()
             barContainerView.addSubview(barView)
-            
+            i+=1
             if shouldAnimate {
-                let animDelay = Double(i)*animDuration*Double(NSEC_PER_SEC)
-                let animDispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(animDelay))
-                
-                dispatch_after(animDispatchTime, dispatch_get_main_queue(), {
-                    UIView.animateWithDuration(animDuration, animations: {
-                        barView.frame = CGRect(x:barView.frame.origin.x, y:self.barContainerView.frame.size.height-finalHeight, width:barView.frame.size.width, height:finalHeight)
-                    })
+                UIView.animateWithDuration(animDuration, animations: {
+                    barView.frame = CGRect(x:barView.frame.origin.x, y:self.barContainerView.frame.size.height-finalHeight, width:barView.frame.size.width, height:finalHeight)
                 })
             }
-            i+=1
         }
     }
     

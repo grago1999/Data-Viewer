@@ -41,7 +41,7 @@ class PointLineGraph: UIView {
         graphContainerView.layer.borderColor = UIColor.blackColor().CGColor
         graphContainerView.layer.borderWidth = 4.0
         
-        pointContainerView = UIView(frame:CGRect(x:margin/2, y:margin/2, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
+        pointContainerView = UIView(frame:CGRect(x:margin*(2/3), y:margin/2, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
         pointContainerView.backgroundColor = UIColor.clearColor()
         
         super.init(frame:frame)
