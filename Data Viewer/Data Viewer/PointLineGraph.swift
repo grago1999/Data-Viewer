@@ -132,8 +132,8 @@ class PointLineGraph: UIView {
     
     internal func addGrid(lines:Int) {
         gridView = GridView(frame:CGRect(x:0, y:0, width:pointContainerView.frame.size.width, height:pointContainerView.frame.size.height), lines:lines)
-        gridView?.addHorLines()
-        gridView?.addVertLines()
+        gridView?.addHorLines(maxX)
+        gridView?.addVertLines(maxY)
         pointContainerView.addSubview(gridView!)
     }
     

@@ -82,7 +82,7 @@ class BarGraph: UIView {
     
     internal func addGrid(lines:Int) {
         gridView = GridView(frame:CGRect(x:0, y:0, width:barContainerView.frame.size.width, height:barContainerView.frame.size.height), lines:lines)
-        gridView?.addHorLines()
+        gridView?.addHorLines(maxY)
         barContainerView.addSubview(gridView!)
     }
 
