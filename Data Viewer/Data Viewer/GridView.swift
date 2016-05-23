@@ -47,8 +47,16 @@ class GridView: UIView {
         }
     }
     
-    internal func addBarLabels(titles:[String]) {
-        
+    internal func addBarLabels(titles:[String], barViews:[UIView]) {
+        let labelHeight:CGFloat = 30.0
+        for i in 0...barViews.count-1 {
+            let label = UILabel(frame:CGRect(x:0, y:barViews[i].frame.size.height+(labelHeight/6), width:barViews[i].frame.size.width*2, height:labelHeight))
+            label.center = CGPoint(x:barViews[i].frame.size.width/2, y:label.center.y)
+            label.text = titles[i]
+            label.textAlignment = .Center
+            label.font = UIFont(name:"Avenir-Heavy", size:10.0)
+            barViews[i].addSubview(label)
+        }
     }
     
     private func createValueLabel(lineView:UIView, isVert:Bool, maxVal:CGFloat, i:Int) {

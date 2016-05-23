@@ -15,6 +15,7 @@ class BarGraph: UIView {
     private var graphContainerView:UIView
     private var barContainerView:UIView
     private var gridView:GridView?
+    private var barViews:[UIView] = []
     
     private var margin:CGFloat = 0.0
     private var maxY:CGFloat = 0.0
@@ -41,26 +42,41 @@ class BarGraph: UIView {
         graphContainerView.addSubview(barContainerView)
     }
     
-    internal func drawBars(shouldAnimate:Bool) {
+    internal func drawBars(barColors:[UIColor], shouldAnimate:Bool) {
+        for barView in barViews {
+            barView.removeFromSuperview()
+        }
+        barViews.removeAll()
         let animDuration = 0.8
-        let distX:CGFloat = barContainerView.frame.size.width/10.0
+        let distX:CGFloat = 20.0
         let rateX:CGFloat = barContainerView.frame.size.height/maxY
         let width:CGFloat = (barContainerView.frame.size.width-(CGFloat(valueDict.count)*distX))/CGFloat(valueDict.count)
         var i = 0
+        var barColorI = 0
         for value in valueDict {
             let finalHeight:CGFloat = value.1*rateX
             var startHeight:CGFloat = finalHeight
             if shouldAnimate {
                 startHeight = 0.0
             }
+            var color = UIColor.blackColor()
+            if barColors.count != 0 {
+                color = barColors[barColorI]
+            }
             let barView = UIView(frame:CGRect(x:((distX+width)*CGFloat(i))+(distX/2), y:barContainerView.frame.size.height, width:width, height:startHeight))
-            barView.backgroundColor = UIColor.blueColor()
+            barView.backgroundColor = color
             barContainerView.addSubview(barView)
             i+=1
             if shouldAnimate {
                 UIView.animateWithDuration(animDuration, animations: {
                     barView.frame = CGRect(x:barView.frame.origin.x, y:self.barContainerView.frame.size.height-finalHeight, width:barView.frame.size.width, height:finalHeight)
                 })
+            }
+            barViews.append(barView)
+            if barColorI == barColors.count-1 {
+                barColorI = 0
+            } else {
+                barColorI+=1
             }
         }
     }
@@ -81,7 +97,7 @@ class BarGraph: UIView {
         for value in valueDict {
             titles.append(value.0)
         }
-        gridView?.addBarLabels(titles)
+        gridView?.addBarLabels(titles, barViews:barViews)
         barContainerView.addSubview(gridView!)
     }
 

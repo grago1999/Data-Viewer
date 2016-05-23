@@ -49,7 +49,7 @@ class PointLineGraph: UIView {
         graphContainerView.addSubview(pointContainerView)
     }
     
-    internal func drawPoints(shouldDrawLine:Bool, shoudlAnimate:Bool) {
+    internal func drawPoints(shouldDrawLine:Bool, lineColor:UIColor, pointColor:UIColor, shouldAnimate:Bool) {
         var relPoints:[CGPoint] = []
         if hasDrawnPoints {
             for line in lines {
@@ -70,18 +70,18 @@ class PointLineGraph: UIView {
             relPoints.append(relPoint)
             let pointView = UIView(frame:CGRect(x:0, y:0, width:pointSize, height:pointSize))
             pointView.center = relPoint
-            pointView.backgroundColor = UIColor.blackColor()
+            pointView.backgroundColor = pointColor
             pointView.layer.cornerRadius = pointSize/2
             pointContainerView.addSubview(pointView)
             pointViews.append(pointView)
-            if shoudlAnimate {
+            if shouldAnimate {
                 if i > 0 {
                     pointView.alpha = 0
-                    let animDelay = Double(i-1)*animDuration*Double(NSEC_PER_SEC)
+                    let animDelay = (animDuration/Double(points.count))*Double(NSEC_PER_SEC)
                     let animDispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(animDelay))
                     
                     dispatch_after(animDispatchTime, dispatch_get_main_queue(), {
-                        UIView.animateWithDuration(animDuration, animations: {
+                        UIView.animateWithDuration(animDuration/Double(self.points.count), animations: {
                             pointView.alpha = 1.0
                         })
                     })
@@ -102,14 +102,14 @@ class PointLineGraph: UIView {
             let pathLayer:CAShapeLayer = CAShapeLayer()
             pathLayer.frame = self.pointContainerView.bounds
             pathLayer.path = path.CGPath
-            pathLayer.strokeColor = UIColor.blackColor().CGColor
-            pathLayer.fillColor = UIColor.blackColor().CGColor
+            pathLayer.strokeColor = lineColor.CGColor
+            pathLayer.fillColor = lineColor.CGColor
             pathLayer.lineWidth = 3.0
             pathLayer.lineJoin = kCALineJoinBevel
             pathLayer.zPosition = -1
             self.pointContainerView.layer.addSublayer(pathLayer)
             
-            if shoudlAnimate {
+            if shouldAnimate {
                 let pathAnimation:CABasicAnimation = CABasicAnimation(keyPath:"strokeEnd")
                 pathAnimation.duration = animDuration
                 pathAnimation.fromValue = NSNumber(float:0.0)
