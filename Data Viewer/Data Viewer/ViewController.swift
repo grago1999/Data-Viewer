@@ -31,6 +31,10 @@ class ViewController: UIViewController {
         self.view.addSubview(barGraph)
     }
 
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

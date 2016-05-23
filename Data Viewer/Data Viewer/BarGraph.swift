@@ -33,7 +33,7 @@ class BarGraph: UIView {
         graphContainerView.layer.borderColor = UIColor.blackColor().CGColor
         graphContainerView.layer.borderWidth = 4.0
         
-        barContainerView = UIView(frame:CGRect(x:margin*(2/3), y:margin/2, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
+        barContainerView = UIView(frame:CGRect(x:margin*(2/3), y:margin/3, width:graphContainerView.frame.size.width-margin, height:graphContainerView.frame.size.height-margin))
         barContainerView.backgroundColor = UIColor.clearColor()
         
         super.init(frame:frame)
@@ -77,6 +77,11 @@ class BarGraph: UIView {
     internal func addGrid(lines:Int) {
         gridView = GridView(frame:CGRect(x:0, y:0, width:barContainerView.frame.size.width, height:barContainerView.frame.size.height), lines:lines)
         gridView?.addHorLines(maxY)
+        var titles:[String] = []
+        for value in valueDict {
+            titles.append(value.0)
+        }
+        gridView?.addBarLabels(titles)
         barContainerView.addSubview(gridView!)
     }
 

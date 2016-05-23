@@ -47,15 +47,22 @@ class GridView: UIView {
         }
     }
     
-    func createValueLabel(lineView:UIView, isVert:Bool, maxVal:CGFloat, i:Int) {
+    internal func addBarLabels(titles:[String]) {
+        
+    }
+    
+    private func createValueLabel(lineView:UIView, isVert:Bool, maxVal:CGFloat, i:Int) {
         let labelWidth:CGFloat = 40.0
         let labelHeight:CGFloat = 30.0
-        var labelFrame:CGRect = CGRect(x:-labelWidth*(3/4), y:-labelWidth/4, width:labelWidth, height:labelHeight)
+        var labelFrame:CGRect = CGRect(x:-labelWidth*(3/4), y:-labelWidth/3, width:labelWidth, height:labelHeight)
         if isVert {
-            labelFrame = CGRect(x:-labelWidth/4, y:-labelWidth*(3/4), width:labelWidth, height:labelHeight)
+            labelFrame = CGRect(x:-labelWidth/4, y:lineView.frame.size.height+(labelHeight/5), width:labelWidth, height:labelHeight)
         }
         let lineLabel = UILabel(frame:labelFrame)
-        let value:CGFloat = CGFloat(lines-i)*(maxVal/CGFloat(lines))
+        var value:CGFloat = CGFloat(lines-i)*(maxVal/CGFloat(lines))
+        if isVert {
+            value = CGFloat(i)*(maxVal/CGFloat(lines))
+        }
         let displayValue:Double = Double(round(10*value)/10)
         lineLabel.text = String(displayValue)
         lineLabel.font = UIFont(name:"Avenir-Heavy", size:10.0)
