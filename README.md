@@ -3,4 +3,4 @@ Graphing tools for iOS applications. So far this supports Point, Line, and Bar G
 
 Here's a quick sample of both a Line Graph and a Bar Graph! (They both animate the values on the graph)
 
-<img src="https://raw.githubusercontent.com/grago1999/GraphingKit/master/gksample.jpg" width=35%>
+<img src="https://raw.githubusercontent.com/grago1999/GraphingKit/master/gksample.jpg" width=35% style="text-align: center;">
